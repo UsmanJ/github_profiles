@@ -30,6 +30,11 @@ describe('factory: Search', function() {
       );
   }));
 
+  afterEach(function() {
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+
   it('responds to query', function() {
     expect(search.query).toBeDefined();
   });

@@ -20,25 +20,26 @@ describe('when searching for a user', function() {
   beforeEach(module('GitUserSearch'));
 
   var ctrl;
+  var fakeSearch;
+
+  beforeEach(function(){
+    fakeSearch = jasmine.createSpyObj('fakeSearch', ['query']);
+
+    module({
+      Search: fakeSearch,
+    });
+
+  });
+
+  beforeEach(function(){
+    fakeSearch.query.and.returnValue({then: function(callback){callback({data: {items: items}})}})
+    // fakeSearch.query.and.returnValue($q.when({data {items: items}}))
+  });
 
   beforeEach(inject(function($controller) {
     ctrl = $controller('GitUserSearchController');
   }));
 
-  var httpBackend;
-  beforeEach(inject(function($httpBackend) {
-    httpBackend = $httpBackend
-    httpBackend
-      .expectGET("https://api.github.com/search/users?access_token=" + at + "&q=hello")
-      .respond(
-        { items: items }
-      );
-  }));
-
-  afterEach(function() {
-    httpBackend.verifyNoOutstandingExpectation();
-    httpBackend.verifyNoOutstandingRequest();
-  });
 
   var items = [
     {
@@ -56,7 +57,6 @@ describe('when searching for a user', function() {
   it('displays search results', function() {
     ctrl.searchTerm = 'hello';
     ctrl.doSearch();
-    httpBackend.flush();
     expect(ctrl.searchResult.items).toEqual(items);
   });
 });
