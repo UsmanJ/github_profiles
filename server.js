@@ -8,9 +8,11 @@ app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 app.get('/', function(req, res) {
-    res.sendfile('./index.html');
+  res.sendfile('./index.html');
 });
 
 app.listen(port, function() {
-    console.log('Our app is running on http://localhost:' + port);
+  console.log('Our app is running on http://localhost:' + port);
 });
+
+module.exports = app;
