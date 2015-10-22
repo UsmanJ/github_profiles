@@ -33,7 +33,6 @@ describe('when searching for a user', function() {
 
   beforeEach(function(){
     fakeSearch.query.and.returnValue({then: function(callback){callback({data: {items: items}})}})
-    // fakeSearch.query.and.returnValue($q.when({data {items: items}}))
   });
 
   beforeEach(inject(function($controller) {
