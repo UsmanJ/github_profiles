@@ -30,8 +30,14 @@ describe('GitHub profile finder', function() {
   it('finds the last Spike', function() {
    searchBox.sendKeys('spike');
    searchButton.click();
+  //  profiles.count().then(function(count) {
+  //    console.log(count);
 
-   var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
+  var profiles = element.all(by.repeater('user in searchCtrl.searchResult.items'));
+  var sum = profiles.count(); 
+  profiles.count().then(function(count) {
+    console.log(count); });
+
    expect(profiles.last().getText()).toEqual('spikelynch');
  });
 });
